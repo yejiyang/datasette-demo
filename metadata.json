@@ -1,0 +1,9 @@
+{
+  "title": "A demo for how to use datasette to publish SQLite database",
+  "license": "CC Attribution 4.0 License",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "source": "datasette-demo",
+  "source_url": "https://github.com/yejiyang/datasette-demo",
+  "about": "datasette-demo",
+  "about_url": "https://github.com/yejiyang/datasette-demo"
+}

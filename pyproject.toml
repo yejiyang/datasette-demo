@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "datasette-demo"
+version = "0.1.0"
+description = "A demo for how to use datasette to publish SQLite database"
+authors = ["Jiyang Ye <jiyang.ye@ngi.no>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "datasette_demo"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+datasette = "^0.64.3"
+csv-to-sqlite = "^2.1.3"
+requests = "^2.31.0"
+pandas = "^2.0.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
