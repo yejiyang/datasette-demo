@@ -22,10 +22,10 @@ step-e-clear: ## Step 5: clear
 
 # Works only when run this command in the terminal
 # datasette install datasette-auth-passwords
-# PASSWORD_HASH_1='pbkdf2_sha256$480000$046b915dc2d3ca3a9fd5aab142a3ffae$/Tp1HGFitqvuJYq/mccWGvmmP2eq9fSJMPGRwHoKyuc=' datasette serve datasette-demo.db private.db -m metadata.json
+# PASSWORD_HASH_1='pbkdf2_sha256$480000$046b915dc2d3ca3a9fd5aab142a3ffae$/Tp1HGFitqvuJYq/mccWGvmmP2eq9fSJMPGRwHoKyuc=' datasette serve public.db private.db -m metadata.json
 server-with-auth-plugin: ## Serve the database with authentication plugin
 	echo "run this command in the terminal"
-	echo "PASSWORD_HASH_1='pbkdf2_sha256$480000$046b915dc2d3ca3a9fd5aab142a3ffae$/Tp1HGFitqvuJYq/mccWGvmmP2eq9fSJMPGRwHoKyuc=' datasette serve datasette-demo.db private.db -m metadata.json"
+	echo "PASSWORD_HASH_1='pbkdf2_sha256$480000$046b915dc2d3ca3a9fd5aab142a3ffae$/Tp1HGFitqvuJYq/mccWGvmmP2eq9fSJMPGRwHoKyuc=' datasette serve public.db private.db -m metadata.json"
 
 serve-docker: ## Serve the database using docker image
 	docker pull datasetteproject/datasette
@@ -46,11 +46,11 @@ publish-google-cloud-run: ## Publish to google cloud run
 	gcloud config set run/region europe-north1
 	datasette publish cloudrun $(db_name) --service=datasette-demo -m $(metadata)
 
-# Not working yet
-publish-google-cloud-run-password: ## Publish to google cloud run 
+# Works only when run this command in the terminal
+publish-google-cloud-run-password: ## Publish to google cloud run with authentication plugin
 	gcloud config set project datasette-demo-388909
 	gcloud config set run/region europe-north1
-	datasette publish cloudrun $(db_name) private.db --service=datasette-demo -m metadata-publish.json --plugin-secret datasette-auth-passwords root_password_hash 'pbkdf2_sha256$480000$046b915dc2d3ca3a9fd5aab142a3ffae$/Tp1HGFitqvuJYq/mccWGvmmP2eq9fSJMPGRwHoKyuc=' --install datasette-auth-passwords 
+	datasette publish cloudrun public.db private.db --service=datasette-demo -m metadata-publish.json --plugin-secret datasette-auth-passwords root_password_hash 'pbkdf2_sha256$480000$046b915dc2d3ca3a9fd5aab142a3ffae$/Tp1HGFitqvuJYq/mccWGvmmP2eq9fSJMPGRwHoKyuc=' --install datasette-auth-passwords 
 
 up: ## Start the container
 	docker-compose up -d
