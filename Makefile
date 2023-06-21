@@ -20,6 +20,13 @@ step-d-serve: ## Step 4: serve the database locally
 step-e-clear: ## Step 5: clear
 	rm $(db_name)
 
+# Works only when run this command in the terminal
+# datasette install datasette-auth-passwords
+# PASSWORD_HASH_1='pbkdf2_sha256$480000$046b915dc2d3ca3a9fd5aab142a3ffae$/Tp1HGFitqvuJYq/mccWGvmmP2eq9fSJMPGRwHoKyuc=' datasette serve datasette-demo.db private.db -m metadata.json
+server-with-auth-plugin: ## Serve the database with authentication plugin
+	echo "run this command in the terminal"
+	echo "PASSWORD_HASH_1='pbkdf2_sha256$480000$046b915dc2d3ca3a9fd5aab142a3ffae$/Tp1HGFitqvuJYq/mccWGvmmP2eq9fSJMPGRwHoKyuc=' datasette serve datasette-demo.db private.db -m metadata.json"
+
 serve-docker: ## Serve the database using docker image
 	docker pull datasetteproject/datasette
 	docker run -p 8001:8001 -v `pwd`:/mnt datasetteproject/datasette datasette -p 8001 -h 0.0.0.0 /mnt/$(db_name)
@@ -38,6 +45,12 @@ publish-google-cloud-run: ## Publish to google cloud run
 	gcloud config set project datasette-demo-388909
 	gcloud config set run/region europe-north1
 	datasette publish cloudrun $(db_name) --service=datasette-demo -m $(metadata)
+
+# Not working yet
+publish-google-cloud-run-password: ## Publish to google cloud run 
+	gcloud config set project datasette-demo-388909
+	gcloud config set run/region europe-north1
+	datasette publish cloudrun $(db_name) private.db --service=datasette-demo -m metadata-publish.json --plugin-secret datasette-auth-passwords root_password_hash 'pbkdf2_sha256$480000$046b915dc2d3ca3a9fd5aab142a3ffae$/Tp1HGFitqvuJYq/mccWGvmmP2eq9fSJMPGRwHoKyuc=' --install datasette-auth-passwords 
 
 up: ## Start the container
 	docker-compose up -d

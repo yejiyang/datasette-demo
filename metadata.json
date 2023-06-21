@@ -5,5 +5,33 @@
   "source": "datasette-demo",
   "source_url": "https://github.com/yejiyang/datasette-demo",
   "about": "datasette-demo",
-  "about_url": "https://github.com/yejiyang/datasette-demo"
+  "about_url": "https://github.com/yejiyang/datasette-demo",
+  "description_html": "Sign in at <a href=\"/-/login\">/-/login</a> with username <code>root</code> and password <code>password!</code>",
+  "plugins": {
+    "datasette-auth-passwords": {
+      "root_password_hash": {
+        "$env": "PASSWORD_HASH_1"
+      },
+      "testuser_password_hash": {
+        "$env": "PASSWORD_HASH_1"
+      },
+      "actors": {
+        "root": {
+          "id": "root",
+          "name": "Root"
+        },
+        "testuser": {
+          "id": "testuser",
+          "name": "Test User"
+        }
+      }
+    }
+  },
+  "databases": {
+    "private": {
+      "allow": {
+        "id": "*"
+      }
+    }
+  }
 }
